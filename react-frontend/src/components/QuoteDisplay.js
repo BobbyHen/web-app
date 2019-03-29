@@ -1,6 +1,13 @@
-import React, {Component} from 'react';
-import '../css/QuoteDisplay.css';
+import React, { Component } from 'react';
+import './css/QuoteDisplay.css';
 
+
+const quotesSection = {
+  paddingTop: "150px",
+  height: "400px",
+  width: "60%",
+  color: "#333"
+}
 
 
 class QuoteDisplay extends Component {
@@ -10,13 +17,12 @@ class QuoteDisplay extends Component {
   };
 
   async componentDidMount(){
-    const url = "/get_quote";
-    //const url = "http://ron-swanson-quotes.herokuapp.com/v2/quotes";
-
+    
+    const url = "http://localhost:5000/get_quote";
     const response = await fetch(url)
     const data = await response.json();
 
-    this.setState({quote: data[0], loading: false});
+    this.setState({quote: data, loading: false});
     console.log(data);
   }
 
@@ -29,9 +35,6 @@ class QuoteDisplay extends Component {
     )
   }
 }
-
-
-
 
 
 export default QuoteDisplay;

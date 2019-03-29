@@ -2,13 +2,17 @@ import ron
 import json
 from pymongo import MongoClient
 from flask import Flask, render_template, request
+from flask_cors import CORS
 # creating an instance of the Flask class using the special __name__ variable
 website = Flask(__name__)
+CORS(website)
+
 
 # Flask uses function decorators to trigger functions based on URL accessed
 @website.route("/")
 def index():
     return render_template("index.html")
+
 
 # URL endpoints
 @website.route("/get_quote")
@@ -29,4 +33,4 @@ def mongo_get():
         results = [doc for doc in collection.find()]
     else:
         results = [doc['quote'] for doc in collection.find(projection={'_id': False})]
-    return jsonify(results)
+    return json.dumps(results)
